@@ -15,13 +15,12 @@ namespace DataLibrary.BusinessLogic
     {
         public static int CustomerRegister(string custFirstName, string custLastName, string custAddress, string custCity,
                                         string custProv, string custPostal, string custCountry, string custhomePhone, string custBusPhone,
-                                        string custEmail, string password, out string error)
+                                        string custEmail, string password)
         {
             string sql = @"dbo.Customer_Register  @CustFirstName, @CustLastName,@CustAddress,@CustCity,@CustProv,@CustPostal,
-                                    @CustCountry,@CustHomePhone, @CustBusPhone, @CustEmail, @Password, @Error OUT";
+                                    @CustCountry,@CustHomePhone, @CustBusPhone, @CustEmail, @Password";
 
             var p = new DynamicParameters();
-            //p.Add("@CustomerId", 0, DbType.Int32, ParameterDirection.Output);
             p.Add("@CustFirstName", custFirstName);
             p.Add("@CustLastName", custLastName);
             p.Add("@CustAddress", custAddress);
@@ -33,11 +32,7 @@ namespace DataLibrary.BusinessLogic
             p.Add("@CustBusPhone", custBusPhone);
             p.Add("@CustEmail", custEmail);
             p.Add("@Password", password);
-            p.Add("@Error", null, DbType.String, ParameterDirection.Output, 100);
-
-            int affectedRows =  EditData(sql, p);
-            error = p.Get<string>("@Error");
-            return affectedRows;
+            return EditData(sql, p);
         }
 
 

@@ -18,7 +18,7 @@ namespace MVCApp.Models
 
         [Display(Name = "Password*")]
         [DataType(DataType.Password)]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Password must at least be 8 characters.")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Password must at least be 8 characters.")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password*")]

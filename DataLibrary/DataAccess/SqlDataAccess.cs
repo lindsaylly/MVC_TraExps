@@ -18,21 +18,7 @@ namespace DataLibrary.DataAccess
             return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
 
-        //public static string EditData(string sql, DynamicParameters p, string paramName)
-        //{
-        //    using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
-        //    {
-        //        try
-        //        {
-        //            cnn.Execute(sql, p);
-        //            return p.Get<string>(paramName);
-        //        }
-        //        catch (SqlException ex)
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //}
+        
 
         public static int EditData(string sql, DynamicParameters p)
         {
@@ -93,7 +79,14 @@ namespace DataLibrary.DataAccess
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
-                return cnn.QuerySingle<T>(sql, p);
+                try
+                {
+                    return cnn.QuerySingleOrDefault<T>(sql, p);
+                }
+                catch (SqlException ex)
+                {
+                    throw;
+                }
             }
         }
     }
